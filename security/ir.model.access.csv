@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_drink_drink,drink.drink,model_drink_drink,,1,1,1,1
+access_list_list,list.list,model_list_list,,1,1,1,1
+access_orders_orders,orders.orders,model_orders_orders,,1,1,1,1

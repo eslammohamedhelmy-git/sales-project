@@ -1,0 +1,141 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="drinks_menu_tree">
+      <field name="name">drinks_tree_menu</field>
+      <field name="model">drink.drink</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="description"/>
+          <field name="price"/>
+        </tree>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="drinks_menu_tree">
+      <field name="name">drinks_tree_menu</field>
+      <field name="model">orders.orders</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="customer_name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_odrink_kanban">
+            <field name="name">view_odrink_kanban</field>
+            <field name="model">drink.drink</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div
+                                    t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                                  oe_kanban_global_click_edit oe_semantic_html_override
+                                                  oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                                <div class="oe_dropdown_kanban">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg" title="Manage" aria-label="Manage"/>
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                            <li>
+                                                <ul class="oe_kanban_colorpicker"
+                                                    data-field="color"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                                <div t-attf-class="oe_kanban_content">
+                                    <!-- title -->
+                                    Type of drink:
+                                    <field name="name"/>
+                                    <br/>
+                                    Description:
+                                    <field name="description"/>
+                                    <br/>
+                                    Price:
+                                    <field name="price"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    <record model="ir.ui.view" id="drinks_menu_form">
+      <field name="name">drinks_menu</field>
+      <field name="model">drink.drink</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="price"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="list_menu_form">
+      <field name="name">list_menu</field>
+      <field name="model">list.list</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+                <field name="name_drinks"/>
+                <field name="amount"/>
+                <field name="Price"/>
+                <field name="total_price"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="orders_menu_form">
+      <field name="name">orders_menu</field>
+      <field name="model">orders.orders</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+                <field name="customer_name"/>
+            </group>
+              <label for="order_list"/>
+              <field name="order_list">
+                  <tree>
+                      <field name="name"/>
+                      <field name="amount"/>
+                      <field name="Price"/>
+                      <field name="total_price" sum="order price" widget="monetary"/>
+                  </tree>
+              </field >
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="drinks_menu_action_window">
+      <field name="name">drinks_menu_window</field>
+      <field name="res_model">drink.drink</field>
+      <field name="view_mode">tree,kanban,form</field>
+    </record>
+    <record model="ir.actions.act_window" id="order_menu_action_window">
+      <field name="name">order_menu_window</field>
+      <field name="res_model">orders.orders</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Top menu item -->
+    <menuitem name="coffe shop" id="coffe_shop.menu_root"/>
+    <!-- menu categories -->
+    <menuitem name="drinks menu" id="coffe_shop.menu_1" parent="coffe_shop.menu_root" action="drinks_menu_action_window"/>
+    <menuitem name="order" id="coffe_shop.menu_2" parent="coffe_shop.menu_root" action="order_menu_action_window"/>
+  </data>
+</odoo>
