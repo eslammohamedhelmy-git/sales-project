@@ -83,22 +83,6 @@
         </form>
       </field>
     </record>
-    <record model="ir.ui.view" id="list_menu_form">
-      <field name="name">list_menu</field>
-      <field name="model">list.list</field>
-      <field name="arch" type="xml">
-        <form>
-          <sheet>
-            <group>
-                <field name="name_drinks"/>
-                <field name="amount"/>
-                <field name="Price"/>
-                <field name="total_price"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
-    </record>
     <record model="ir.ui.view" id="orders_menu_form">
       <field name="name">orders_menu</field>
       <field name="model">orders.orders</field>
@@ -110,13 +94,17 @@
             </group>
               <label for="order_list"/>
               <field name="order_list">
-                  <tree>
+                  <tree editable="bottom">
                       <field name="name"/>
+                      <field name="description"/>
+                      <field name="price"/>
                       <field name="amount"/>
-                      <field name="Price"/>
-                      <field name="total_price" sum="order price" widget="monetary"/>
+                      <field name="price_total" sum="Total Price"/>
                   </tree>
               </field >
+<!--              <group>-->
+<!--                  <field name="total_price"/>-->
+<!--              </group>-->
           </sheet>
         </form>
       </field>
@@ -125,7 +113,7 @@
     <record model="ir.actions.act_window" id="drinks_menu_action_window">
       <field name="name">drinks_menu_window</field>
       <field name="res_model">drink.drink</field>
-      <field name="view_mode">tree,kanban,form</field>
+      <field name="view_mode">kanban,tree,form</field>
     </record>
     <record model="ir.actions.act_window" id="order_menu_action_window">
       <field name="name">order_menu_window</field>
